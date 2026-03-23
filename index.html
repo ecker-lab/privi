@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PriVi — Towards a General-Purpose Video Model for Primate Behavior in the Wild</title>
+  <meta name="description" content="PriVi: A large-scale primate-centric video pretraining dataset with 424 hours of curated video for behavioral research. CVPR 2026.">
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/favicon-180.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ════════════ Hero ════════════ -->
+<section class="hero">
+  <div class="container">
+    <span class="hero-badge">CVPR 2026</span>
+    <h1 class="hero-title">PriVi</h1>
+    <p class="hero-subtitle">Towards a General-Purpose Video Model for Primate Behavior in the Wild</p>
+    <p class="hero-authors">
+      <span class="author-name">Felix B. Mueller,</span>
+      <span class="author-name">Jan F. Meier,</span>
+      <span class="author-name">Timo Lueddecke,</span>
+      <span class="author-name">Richard Vogg,</span>
+      <span class="author-name">Roger L. Freixanet,</span>
+      <span class="author-name">Valentin Hassler,</span>
+      <span class="author-name">Tiffany Bosshard,</span>
+      <span class="author-name">Elif Karakoc,</span>
+      <span class="author-name">William J. O'Hearn,</span>
+      <span class="author-name">Sofia M. Pereira,</span>
+      <span class="author-name">Sandro Sehner,</span>
+      <span class="author-name">Kaja Wierucka,</span>
+      <span class="author-name">Judith Burkart,</span>
+      <span class="author-name">Claudia Fichtel,</span>
+      <span class="author-name">Julia Fischer,</span>
+      <span class="author-name">Alexander Gail,</span>
+      <span class="author-name">Catherine Hobaiter,</span>
+      <span class="author-name">Julia Ostner,</span>
+      <span class="author-name">Liran Samuni,</span>
+      <span class="author-name">Oliver Sch&uuml;lke,</span>
+      <span class="author-name">Neda Shahidi,</span>
+      <span class="author-name">Erin G. Wessling,</span>
+      <span class="author-name">Alexander S. Ecker</span>
+    </p>
+    <div class="hero-buttons">
+      <a href="https://arxiv.org/abs/2511.09675" class="btn btn-primary" target="_blank">ArXiv</a>
+      <a href="#" class="btn btn-disabled">Code (coming soon)</a>
+      <a href="#" class="btn btn-disabled">Dataset (coming soon)</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ Teaser ════════════ -->
+<section>
+  <div class="container">
+    <div class="figure">
+      <img src="assets/teaser_new.png" alt="PriVi teaser figure showing SOTA improvements across four primate behavior benchmarks" loading="lazy" style="width:70%;max-width:100%;">
+      <p class="figure-caption"><strong>Pretraining on PriVi improves state-of-the-art across four primate behavior benchmarks.</strong> Frozen evaluation of a V-JEPA model pretrained on PriVi consistently outperforms prior work, including fully finetuned baselines. Additionally pretraining on the target datasets improves performance further.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ Abstract ════════════ -->
+<section>
+  <div class="container">
+    <h2>Abstract</h2>
+    <p class="abstract-text">
+      Non-human primates are our closest living relatives, and analyzing their behavior is central to research in cognition, evolution, and conservation. Computer vision could greatly aid this research, but existing methods often rely on human-centric pretrained models and focus on single datasets, which limits generalization. We address this limitation by shifting from a model-centric to a data-centric approach and introduce <strong>PriVi</strong>, a large-scale primate-centric video pretraining dataset. PriVi contains <strong>424 hours of curated video</strong>, combining 174 hours from behavioral research across 11 settings with 250 hours of diverse web-sourced footage, assembled through a scalable data curation pipeline. We continue pretraining V-JEPA, a large-scale video model,  on PriVi to learn primate-specific representations and evaluate it using a lightweight frozen classifier. Across four benchmark datasets &mdash; ChimpACT, PanAf500, BaboonLand, and ChimpBehave &mdash; our approach consistently outperforms prior work, including fully finetuned baselines, and scales favorably with fewer labels. These results demonstrate for the first time that general in-domain pretraining, where pretraining is conducted on similar data but not the target dataset itself, works for video models. Our primate-centric pretraining substantially improves data efficiency and generalization, making it a promising approach for low-label applications.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════ Animated Dataset Showcase ════════════ -->
+<section>
+  <div class="container">
+    <h2>Dataset Samples</h2>
+    <p>PriVi spans a wide range of primate species, environments, and recording conditions &mdash; from camera traps in the wild to controlled lab settings.</p>
+    <div class="gif-grid">
+      <div class="gif-card">
+        <img src="assets/gifs/ro_eulemur.gif" alt="Eulemur in Madagascar forest" loading="lazy">
+        <div class="gif-label">Eulemur &middot; Wild</div>
+      </div>
+      <div class="gif-card">
+        <img src="assets/gifs/ro_baboon.gif" alt="Baboon in Senegal" loading="lazy">
+        <div class="gif-label">Baboon &middot; Wild</div>
+      </div>
+      <div class="gif-card">
+        <img src="assets/gifs/ro_lemur.gif" alt="Ring-tailed lemur" loading="lazy">
+        <div class="gif-label">Ring-tailed Lemur &middot; Wild-like</div>
+      </div>
+      <div class="gif-card">
+        <img src="assets/gifs/ro_barbary.gif" alt="Assamese macaque" loading="lazy">
+        <div class="gif-label">Assamese Macaque &middot; Wild</div>
+      </div>
+      <div class="gif-card">
+        <img src="assets/gifs/yt_1.gif" alt="YouTube primate footage" loading="lazy">
+        <div class="gif-label">Primate &middot; YouTube</div>
+      </div>
+      <div class="gif-card">
+        <img src="assets/gifs/yt_2.gif" alt="YouTube primate footage" loading="lazy">
+        <div class="gif-label">Primate &middot; YouTube</div>
+      </div>
+      <div class="gif-card">
+        <img src="assets/gifs/yt_3.gif" alt="YouTube primate footage" loading="lazy">
+        <div class="gif-label">Primate &middot; YouTube</div>
+      </div>
+      <div class="gif-card">
+        <img src="assets/gifs/yt_4.gif" alt="YouTube primate footage" loading="lazy">
+        <div class="gif-label">Primate &middot; YouTube</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ Dataset Overview ════════════ -->
+<section>
+  <div class="container">
+    <h2>Dataset Overview</h2>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-number">424 h</div>
+        <div class="stat-label">Total Video</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">7+</div>
+        <div class="stat-label">Primate Species</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">11</div>
+        <div class="stat-label">Research Settings</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">720K</div>
+        <div class="stat-label">Video Clips</div>
+      </div>
+    </div>
+
+    <p>PriVi combines two complementary subsets: <strong>R&amp;O</strong> (174h) consists of research video from 11 behavioral studies spanning lemurs, baboons, chimpanzees, macaques, marmosets, and more. <strong>YT-Filtered</strong> (250h) adds diverse web-sourced footage curated through our automated pipeline to maximize coverage of species and settings.</p>
+
+    <div class="two-col">
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:10px;">Species Distribution</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Genus / Family</th><th>YT-Filt.</th><th>R&amp;O</th><th>PriVi</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Macaques</td><td>63.1%</td><td>14.1%</td><td>43.0%</td></tr>
+            <tr><td>Chimpanzees</td><td>7.8%</td><td>35.7%</td><td>19.3%</td></tr>
+            <tr><td>Baboons</td><td>1.3%</td><td>16.2%</td><td>7.4%</td></tr>
+            <tr><td>True Lemurs</td><td>&lt;1%</td><td>22.7%</td><td>9.8%</td></tr>
+            <tr><td>Marmosets</td><td>&lt;1%</td><td>11.1%</td><td>5.1%</td></tr>
+            <tr><td>Orangutans</td><td>4.1%</td><td>0%</td><td>2.4%</td></tr>
+            <tr><td>Others</td><td>8.1%</td><td>0%</td><td>4.8%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:10px;">Setting Distribution</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Setting</th><th>YT-Filt.</th><th>R&amp;O</th><th>PriVi</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>In the wild</td><td>59.6%</td><td>62.7%</td><td>60.9%</td></tr>
+            <tr><td>Wild-like</td><td>27.8%</td><td>22.4%</td><td>25.6%</td></tr>
+            <tr><td>Indoors</td><td>4.1%</td><td>14.6%</td><td>8.4%</td></tr>
+            <tr><td>Not identifiable</td><td>8.6%</td><td>0%</td><td>5.1%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="figure" style="margin-top:32px;">
+      <img src="assets/data_pipeline.png" alt="PriVi data curation pipeline" loading="lazy">
+      <p class="figure-caption"><strong>Data curation pipeline.</strong> Our automated pipeline filters, deduplicates, and curates web-sourced primate videos at scale.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ Method ════════════ -->
+<section>
+  <div class="container">
+    <h2>Method</h2>
+    <p>We continue pretraining <strong>V-JEPA</strong> (ViT-L) on PriVi to learn primate-specific video representations. For evaluation, we develop a lightweight <strong>attentive classifier</strong> with only 220K trainable parameters on top of the frozen encoder. This enables efficient training for diverse primate behavior benchmarks without finetuning the backbone.</p>
+    <div class="figure">
+      <img src="assets/model_new.png" alt="Model architecture: V-JEPA continual pretraining with attentive classifier" loading="lazy" style="width:70%;max-width:100%;">
+      <p class="figure-caption"><strong>Model overview.</strong> We continue pretraining V-JEPA on PriVi and optionally the target dataset, then evaluated with a frozen backbone and lightweight attentive classifier.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ Results ════════════ -->
+<section>
+  <div class="container">
+    <h2>Benchmark Results</h2>
+    <p>PriVi consistently outperforms prior methods across four primate behavior benchmarks, including fully finetuned baselines with orders of magnitude more trainable parameters.</p>
+
+    <div style="overflow-x:auto;">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th rowspan="2" style="text-align:left;">Method</th>
+            <th colspan="2">ChimpACT</th>
+            <th colspan="2">PanAf500</th>
+            <th colspan="2">BaboonLand</th>
+            <th colspan="2">ChimpBehave</th>
+          </tr>
+          <tr>
+            <th>mAP</th><th>mAP<sub>w</sub></th>
+            <th>Acc</th><th>B-Acc</th>
+            <th>Acc</th><th>B-Acc</th>
+            <th>Acc</th><th>B-Acc</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:left;">X3D</td>
+            <td>27.05</td><td>51.60</td>
+            <td>80.00</td><td>50.35</td>
+            <td>64.89</td><td>31.41</td>
+            <td>89.3</td><td>62.8</td>
+          </tr>
+          <tr>
+            <td style="text-align:left;">VideoMAEv2</td>
+            <td>&mdash;</td><td>&mdash;</td>
+            <td>&mdash;</td><td>&mdash;</td>
+            <td>&mdash;</td><td>&mdash;</td>
+            <td>92.3</td><td class="second-val">74.8</td>
+          </tr>
+          <tr>
+            <td style="text-align:left;">UniformerV2-B</td>
+            <td>&mdash;</td><td>&mdash;</td>
+            <td>&mdash;</td><td>&mdash;</td>
+            <td>63.45</td><td>28.67</td>
+            <td>&mdash;</td><td>&mdash;</td>
+          </tr>
+          <tr>
+            <td style="text-align:left;">InternVideo-L</td>
+            <td>25.7</td><td>&mdash;</td>
+            <td>78.57</td><td>54.01</td>
+            <td>&mdash;</td><td>&mdash;</td>
+            <td>&mdash;</td><td>&mdash;</td>
+          </tr>
+          <tr>
+            <td style="text-align:left;">ChimpVLM</td>
+            <td>&mdash;</td><td>&mdash;</td>
+            <td>84.91</td><td>61.94</td>
+            <td>&mdash;</td><td>&mdash;</td>
+            <td>&mdash;</td><td>&mdash;</td>
+          </tr>
+          <tr>
+            <td style="text-align:left;">VideoPrism-g</td>
+            <td>31.5</td><td>&mdash;</td>
+            <td>&mdash;</td><td>&mdash;</td>
+            <td>&mdash;</td><td>&mdash;</td>
+            <td>&mdash;</td><td>&mdash;</td>
+          </tr>
+          <tr class="method-group"><td colspan="9" style="text-align:left;">Our Classifier</td></tr>
+          <tr>
+            <td style="text-align:left;padding-left:20px;"><em>V-JEPA</em></td>
+            <td>36.33</td><td>55.50</td>
+            <td>82.96</td><td>56.69</td>
+            <td>74.91</td><td>26.99</td>
+            <td>94.99</td><td>68.41</td>
+          </tr>
+          <tr>
+            <td style="text-align:left;padding-left:20px;"><strong>PriVi</strong></td>
+            <td class="second-val">39.25</td><td class="second-val">58.16</td>
+            <td class="best-val">86.74</td><td class="second-val">62.75</td>
+            <td class="second-val">75.43</td><td class="second-val">33.99</td>
+            <td class="second-val">95.58</td><td>71.30</td>
+          </tr>
+          <tr>
+            <td style="text-align:left;padding-left:20px;"><strong>PriVi + TDP</strong></td>
+            <td class="best-val">40.00</td><td class="best-val">59.29</td>
+            <td class="second-val">85.01</td><td class="best-val">62.96</td>
+            <td class="best-val">76.42</td><td class="best-val">38.57</td>
+            <td class="best-val">96.02</td><td class="best-val">75.14</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:4px;"><strong>Bold</strong> = best, <u>underline</u> = second best. Results on test sets.</p>
+
+    <div class="two-col" style="margin-top:28px;gap:16px;align-items:end;">
+      <div class="figure" style="margin:0;display:flex;align-items:flex-end;">
+        <img src="assets/head_data1.png" alt="Data efficiency on PanAf500" loading="lazy">
+      </div>
+      <div class="figure" style="margin:0;display:flex;align-items:flex-end;">
+        <img src="assets/head_data2.png" alt="Data efficiency on ChimpACT" loading="lazy">
+      </div>
+    </div>
+    <p class="figure-caption" style="text-align:center;"><strong>PriVi scales favorably with fewer labeled data.</strong> Error bars are 95% confidence intervals estimated over three different subsets. Results on validation sets.</p>
+  </div>
+</section>
+
+<!-- ════════════ Gallery ════════════ -->
+<section>
+  <div class="container">
+    <h2>Dataset Examples Gallery</h2>
+    <p>Sample frames from each of the 11 R&amp;O research subsets and the YT-Filtered web data.</p>
+
+    <h3 style="font-size:0.95rem;margin:20px 0 10px;color:var(--text-secondary);">R&amp;O &mdash; Research Data</h3>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="assets/examples/eulemur_0248_10858.jpg" alt="Eulemur" loading="lazy">
+        <div class="gallery-label">eulemur</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/eulemur_1124_14940.jpg" alt="Eulemur" loading="lazy">
+        <div class="gallery-label">eulemur</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/eulemur_0153_08722.jpg" alt="Eulemur" loading="lazy">
+        <div class="gallery-label">eulemur</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/baboon_w_0015_07198.jpg" alt="Baboon (wild)" loading="lazy">
+        <div class="gallery-label">baboon_w</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/baboon_w_0289_13216.jpg" alt="Baboon (wild)" loading="lazy">
+        <div class="gallery-label">baboon_w</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/baboon_w_0098_14100.jpg" alt="Baboon (wild)" loading="lazy">
+        <div class="gallery-label">baboon_w</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/baboon_a_0000_00200.jpg" alt="Baboon (Amboseli)" loading="lazy">
+        <div class="gallery-label">baboon_a</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/baboon_a_0034_07100.jpg" alt="Baboon (Amboseli)" loading="lazy">
+        <div class="gallery-label">baboon_a</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/baboon_a_0106_01600.jpg" alt="Baboon (Amboseli)" loading="lazy">
+        <div class="gallery-label">baboon_a</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/lemur_0000_23461.jpg" alt="Ring-tailed lemur" loading="lazy">
+        <div class="gallery-label">lemur</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/lemur_0212_23190.jpg" alt="Ring-tailed lemur" loading="lazy">
+        <div class="gallery-label">lemur</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/lemur_0075_15300.jpg" alt="Ring-tailed lemur" loading="lazy">
+        <div class="gallery-label">lemur</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/assamese_0004_00377.jpg" alt="Assamese macaque" loading="lazy">
+        <div class="gallery-label">assamese</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/assamese_0012_00696.jpg" alt="Assamese macaque" loading="lazy">
+        <div class="gallery-label">assamese</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/assamese_0007_00290.jpg" alt="Assamese macaque" loading="lazy">
+        <div class="gallery-label">assamese</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/barbary_a_0022_05550.jpg" alt="Barbary macaque" loading="lazy">
+        <div class="gallery-label">barbary_a</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/barbary_a_0055_04300.jpg" alt="Barbary macaque" loading="lazy">
+        <div class="gallery-label">barbary_a</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/barbary_a_0069_10240.jpg" alt="Barbary macaque" loading="lazy">
+        <div class="gallery-label">barbary_a</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/barbary_t_0042_03304.jpg" alt="Barbary macaque (Trentham)" loading="lazy">
+        <div class="gallery-label">barbary_t</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/marmoset_0348_07575.jpg" alt="Marmoset" loading="lazy">
+        <div class="gallery-label">marmoset</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/marmoset_0176_03150.jpg" alt="Marmoset" loading="lazy">
+        <div class="gallery-label">marmoset</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/boliviensis_0006_09200.jpg" alt="Squirrel monkey" loading="lazy">
+        <div class="gallery-label">saimiri</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/boliviensis_0061_03780.jpg" alt="Squirrel monkey" loading="lazy">
+        <div class="gallery-label">saimiri</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/rhesus_0000_40500.jpg" alt="Rhesus macaque" loading="lazy">
+        <div class="gallery-label">rhesus</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:0.95rem;margin:24px 0 10px;color:var(--text-secondary);">YT-Filtered &mdash; Web Data</h3>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="assets/examples/yt_11426_04050.jpg" alt="YouTube primate footage" loading="lazy">
+        <div class="gallery-label">youtube</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/yt_12736_00435.jpg" alt="YouTube primate footage" loading="lazy">
+        <div class="gallery-label">youtube</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/yt_20492_00500.jpg" alt="YouTube primate footage" loading="lazy">
+        <div class="gallery-label">youtube</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/yt_50773_00480.jpg" alt="YouTube primate footage" loading="lazy">
+        <div class="gallery-label">youtube</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/yt_15139_01775.jpg" alt="YouTube primate footage" loading="lazy">
+        <div class="gallery-label">youtube</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/yt_21950_00060.jpg" alt="YouTube primate footage" loading="lazy">
+        <div class="gallery-label">youtube</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/yt_31257_00625.jpg" alt="YouTube primate footage" loading="lazy">
+        <div class="gallery-label">youtube</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/examples/yt_48147_103920.jpg" alt="YouTube primate footage" loading="lazy">
+        <div class="gallery-label">youtube</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ Data Contributors ════════════ -->
+<section>
+  <div class="container">
+    <h2>Data Contributors</h2>
+    <p>PriVi was made possible by contributions from researchers across multiple institutions. The table below lists the contributors of each dataset subset.</p>
+
+    <table class="contrib-table">
+      <thead>
+        <tr><th>Dataset</th><th>Contributors</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>eulemur</td><td>Elif Karakoc (DPZ-BE), Claudia Fichtel (DPZ-BE), Peter Kappeler (UGoe)</td></tr>
+        <tr><td>baboon_w</td><td>William J. O'Hearn (UGoe/DPZ-CE), Julia Fischer (UGoe/DPZ-CE)</td></tr>
+        <tr><td>baboon_a</td><td>Julia Fischer (UGoe/DPZ-CE)</td></tr>
+        <tr><td>lemur</td><td>Kaja Wierucka (DPZ-BE)</td></tr>
+        <tr><td>assamese</td><td>Sofia M. Pereira (UGoe/DPZ-SE), Julia Ostner (UGoe/DPZ-SE), Oliver Sch&uuml;lke (UGoe/DPZ-SE)</td></tr>
+        <tr><td>barbary_a</td><td>Julia Fischer (UGoe/DPZ-CE)</td></tr>
+        <tr><td>barbary_t</td><td>Tiffany Bosshard (DPZ-CE), Julia Fischer (UGoe/DPZ-CE)</td></tr>
+        <tr><td>saimiri</td><td>Sandro Sehner (UZH), Judith Burkart (UZH)</td></tr>
+        <tr><td>marmoset</td><td>Sandro Sehner (UZH), Judith Burkart (UZH)</td></tr>
+        <tr><td>rhesus</td><td>Alexander Gail (UGoe/DPZ-CN), Neda Shahidi (UGoe/DPZ-CN)</td></tr>
+      </tbody>
+    </table>
+
+    <p class="legend">
+      <strong>UGoe</strong> = University of G&ouml;ttingen &middot;
+      <strong>DPZ-BE</strong> = DPZ, Behavioral Ecology &amp; Sociobiology &middot;
+      <strong>DPZ-CE</strong> = DPZ, Cognitive Ethology &middot;
+      <strong>DPZ-SE</strong> = DPZ, Social Evolution in Primates &middot;
+      <strong>DPZ-CN</strong> = DPZ, Cognitive Neuroscience &middot;
+      <strong>UZH</strong> = University of Zurich &middot;
+      <strong>DPZ</strong> = German Primate Center &mdash; Leibniz Institute for Primate Research
+    </p>
+  </div>
+</section>
+
+<!-- ════════════ Citation ════════════ -->
+<section>
+  <div class="container">
+    <h2>Citation</h2>
+    <div class="bibtex-block">
+      <button class="copy-btn" onclick="copyBibtex()">Copy</button>
+      <pre><code>@article{mueller2024privi,
+  title   = {Towards a General-Purpose Video Model for Primate
+             Behavior in the Wild},
+  author  = {Mueller, Felix B. and Meier, Jan F. and Lueddecke, Timo
+             and Vogg, Richard and Freixanet, Roger L. and Hassler,
+             Valentin and Bosshard, Tiffany and Karakoc, Elif and
+             O'Hearn, William J. and Pereira, Sofia M. and Sehner,
+             Sandro and Wierucka, Kaja and Burkart, Judith and
+             Fichtel, Claudia and Fischer, Julia and Gail, Alexander
+             and Hobaiter, Catherine and Ostner, Julia and Samuni,
+             Liran and Sch{\"u}lke, Oliver and Shahidi, Neda and
+             Wessling, Erin G. and Ecker, Alexander S.},
+  journal = {arXiv preprint arXiv:2511.09675},
+  year    = {2025}
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ Footer ════════════ -->
+<footer class="footer">
+  <div class="container">
+    <p>PriVi by <a href="https://eckerlab.org" target="_blank">Eckerlab</a></p>
+  </div>
+</footer>
+
+<script>
+function copyBibtex() {
+  const code = document.querySelector('.bibtex-block code').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
