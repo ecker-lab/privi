@@ -49,6 +49,12 @@
       <a href="#" class="btn btn-disabled">Dataset (coming soon)</a>
     </div>
   </div>
+
+  <div class="container" style="margin-top: 24px;">
+    <div class="info-box">
+      <strong>Call for Data Contributions:</strong> We want to turn this project into a broad data collection and curation effort to give computer vision researchers easy access to large-scale high-quality diverse primate videos. The goal is to make it easier to develop methods that work across varying settings and species. If you have primates videos to contribute (observational or part of experiments, no labels or curation needed, can be from test runs or failed experiments), please email <a href="mailto:felix.mueller@cs.uni-goettingen.de">felix.mueller@cs.uni-goettingen.de</a> to become part of the effort!
+    </div>
+  </div>
 </section>
 
 <!-- ════════════ Teaser ════════════ -->
@@ -66,7 +72,7 @@
   <div class="container">
     <h2>Abstract</h2>
     <p class="abstract-text">
-      Non-human primates are our closest living relatives, and analyzing their behavior is central to research in cognition, evolution, and conservation. Computer vision could greatly aid this research, but existing methods often rely on human-centric pretrained models and focus on single datasets, which limits generalization. We address this limitation by shifting from a model-centric to a data-centric approach and introduce <strong>PriVi</strong>, a large-scale primate-centric video pretraining dataset. PriVi contains <strong>424 hours of curated video</strong>, combining 174 hours from behavioral research across 11 settings with 250 hours of diverse web-sourced footage, assembled through a scalable data curation pipeline. We continue pretraining V-JEPA, a large-scale video model,  on PriVi to learn primate-specific representations and evaluate it using a lightweight frozen classifier. Across four benchmark datasets &mdash; ChimpACT, PanAf500, BaboonLand, and ChimpBehave &mdash; our approach consistently outperforms prior work, including fully finetuned baselines, and scales favorably with fewer labels. These results demonstrate for the first time that general in-domain pretraining, where pretraining is conducted on similar data but not the target dataset itself, works for video models. Our primate-centric pretraining substantially improves data efficiency and generalization, making it a promising approach for low-label applications.
+      Non-human primates are our closest living relatives, and analyzing their behavior is central to research in cognition, evolution, and conservation. Computer vision could greatly aid this research, but existing methods often rely on human-centric pretrained models and focus on single datasets, which limits generalization. We address this limitation by shifting from a model-centric to a data-centric approach and introduce <strong>PriVi</strong>, a large-scale primate-centric video pretraining dataset. PriVi contains <strong>424 hours of curated video</strong>, combining 174 hours from behavioral research across 11 settings with 250 hours of diverse web-sourced footage, assembled through a scalable data curation pipeline. We continue pretraining V-JEPA, a large-scale video model,  on PriVi to learn primate-specific representations and evaluate it using a lightweight frozen classifier. Across four benchmark datasets &mdash; ChimpACT, PanAf500, BaboonLand, and ChimpBehave &mdash; our approach consistently outperforms prior work, including fully finetuned baselines, and scales favorably with fewer labels. These results demonstrate for the first time that domain-level pretraining, where pretraining is conducted on similar data but not the target dataset itself, works for video models. Our primate-centric pretraining substantially improves data efficiency and generalization, making it a promising approach for low-label applications.
     </p>
   </div>
 </section>
@@ -151,7 +157,8 @@
             <tr><td>Chimpanzees</td><td>7.8%</td><td>35.7%</td><td>19.3%</td></tr>
             <tr><td>Baboons</td><td>1.3%</td><td>16.2%</td><td>7.4%</td></tr>
             <tr><td>True Lemurs</td><td>&lt;1%</td><td>22.7%</td><td>9.8%</td></tr>
-            <tr><td>Marmosets</td><td>&lt;1%</td><td>11.1%</td><td>5.1%</td></tr>
+            <tr><td>Marmosets</td><td>&lt;1%</td><td>5.7%</td><td>2.1%</td></tr>
+            <tr><td>Squirrel monkeys</td><td>&lt;1%</td><td>5.4%</td><td>2.0%</td></tr>
             <tr><td>Orangutans</td><td>4.1%</td><td>0%</td><td>2.4%</td></tr>
             <tr><td>Others</td><td>8.1%</td><td>0%</td><td>4.8%</td></tr>
           </tbody>
@@ -274,7 +281,7 @@
             <td class="second-val">95.58</td><td>71.30</td>
           </tr>
           <tr>
-            <td style="text-align:left;padding-left:20px;"><strong>PriVi + TDP</strong></td>
+            <td style="text-align:left;padding-left:20px;"><strong>PriVi + DaLP</strong></td>
             <td class="best-val">40.00</td><td class="best-val">59.29</td>
             <td class="second-val">85.01</td><td class="best-val">62.96</td>
             <td class="best-val">76.42</td><td class="best-val">38.57</td>
