@@ -1,0 +1,51 @@
+name: privi
+channels:
+  - conda-forge
+
+# Why no `pytorch` / `nvidia` channels and why torch is installed via pip:
+#   With `channel_priority: strict` (the Miniforge default) the first channel
+#   wins per-package. When conda-forge is listed first, conda-forge's default
+#   CPU-only build of pytorch is selected and `pytorch-cuda=11.8` is silently
+#   ignored — you end up with `torch.cuda.is_available()` returning False.
+#   Installing torch/torchvision/torchaudio from the official PyTorch wheel
+#   index (`+cu118`) avoids that trap and matches the versions the project
+#   has been tested against.
+
+dependencies:
+  - python=3.12
+  - pip
+
+  # ---- Core numerical / data ----
+  - numpy>=2.1
+  - einops>=0.8
+  - pandas>=2.2              # video_dataset.py label CSV loading
+  - scipy
+  - scikit-learn>=1.5        # accuracy_score, confusion_matrix (eval datasets)
+  - scikit-image             # skimage.transform.rotate (video augmentation)
+
+  # ---- Vision & Video (system libs) ----
+  - opencv                   # cv2 – video decoding helpers & augmentations
+  - pillow>=11               # PIL – image transforms
+  - ffmpeg                   # conda ffmpeg with H.264 (NOT system module)
+
+  # ---- Config & Logging ----
+  - pyyaml>=6                # YAML config loading
+  - tqdm>=4                  # progress bars
+  - wandb                    # experiment tracking
+
+  # ---- Utilities used by privi/ ----
+  - fire
+  - filelock
+
+  # ---- pip-only packages ----
+  - pip:
+      # cu118 wheels from pytorch.org. Keep torch/vision/audio versions pinned
+      # together — mismatches produce runtime import/linker errors.
+      - --extra-index-url https://download.pytorch.org/whl/cu118
+      - torch==2.5.1
+      - torchvision==0.20.1
+      - torchaudio==2.5.1
+      - torchmetrics>=1      # average_precision, accuracy, etc. in eval datasets
+      - decord==0.6.0        # video frame decoding (not on conda-forge)
+      - submitit             # SLURM job submission
+      - -e .                 # install current repository as editable to resolve paths right

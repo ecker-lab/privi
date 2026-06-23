@@ -1,0 +1,63 @@
+data:
+  paths:
+    train_local: data/ChimpACT_processed/annotations/action/train_action.ava.csv
+    val_local: data/ChimpACT_processed/annotations/action/val_action.ava.csv
+    test_local: data/ChimpACT_processed/annotations/action/test_fix_action.ava.csv
+  data_path: data/ChimpACT_release_v1/videos_full/
+  num_views_per_segment_val: 3
+  embed_dim_global: null
+  embed_dim_local: 1024
+  num_workers: 12
+  # These labels are ignored during training, however we still calculate mAP over them during evaluation to match prior evaluation protocols
+  ignore_labels: ['aggressing', 'losing object', 'taking object', 'being begged from', 'displaying', 'begging', 'erection']
+  mode: video
+  memory_caching: "offload"
+  use_caching: True
+  dataset_type: chimpact
+optimization:
+  batch_size: 8
+  val_batch_size: 128
+  num_epochs: 1
+  weight_decay: 0.01
+  lr: 1.e-3
+  final_lr: 0.0
+  warmup: 0.
+  use_bfloat16: false
+  loss_fn: cross_entropy
+  n_classifiers: 5
+  buffer_size: 200
+head_type: privi
+head:
+  depth: 3
+  embed_dim: 64
+  norm_input: true
+backbone_type: vjepa
+backbone:
+  pretrained_path: data/privi_original.pth # or vitl16.pth.tar
+  model_name: vit_large
+  patch_size: 16
+  tubelet_size: 2
+  uniform_power: true
+  checkpoint_key: target_encoder
+  use_silu: false
+  tight_silu: false
+  use_sdpa: true
+  dtype: float16
+  out_layers: [23]
+  training_mode: frozen
+data_aug:
+  random_resize_aspect_ratio: [0.75, 1.333333]
+  random_resize_scale: [0.3, 1.0]
+  reprob: 0.0
+  auto_augment: False
+  motion_shift: False
+  random_horizontal_flip: True
+meta:
+  save_dir: data/
+  n_trials: 1
+  val_every_n_samples: 15000
+
+# Uncomment for evaluation on test set
+#ckpts: data/checkpoints/frozen_head/RUN_NAME
+#head_epochs: [BEST_VAL_EPOCHS] # e.g. [0.24, 0.21, 0.14, 0.21, 0.27]
+  
