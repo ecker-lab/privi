@@ -1,6 +1,6 @@
 # PriVi
 
-[[Project page]](https://https://privi.eckerlab.org/) [[Paper]](https://arxiv.org/abs/2511.09675) [[Dataset]](https://doi.org/10.25625/YC3UQU)
+[[Project page]](https://privi.eckerlab.org/) [[Paper]](https://arxiv.org/abs/2511.09675) [[Dataset]](https://doi.org/10.25625/YC3UQU)
 
 This is code for our CVPR 2026 paper [PriVi: Towards a General-Purpose Video Model for Primate Behavior in the Wild](https://arxiv.org/abs/2511.09675).
 
