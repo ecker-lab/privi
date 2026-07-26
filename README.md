@@ -61,7 +61,7 @@ See [EVAL_DATASETS.md](docs/EVAL_DATASETS.md) for dataset preprocessing and more
 
 ### Assemble pretrain data and model checkpoints
 
-1. Download all snippets_*.zip files from TODO and unzip them in `data/snippets/`
+1. Download all snippets_*.zip files from [GRO.data](https://doi.org/10.25625/YC3UQU) and unzip them in `data/snippets/`
 2. Download [yt.tab](https://doi.org/10.25625/YC3UQU) as CSV and download all YouTube videos with IDs listed to `data/yt` in the format `YOUTUBE_ID.mp4`
 3.  Run `python privi/preprocessing/extract_snippets_from_csv.py data/yt.csv data/snippets/ --video-base-path=data/` to extract 3s snippets from youtube videos
 4. Download [`pretrain_samples.tab`](https://doi.org/10.25625/YC3UQU) as CSV to `data/`. If you want to use only R&O videos for pretraining, use [`pretrain_samples_wo_yt.csv`](https://doi.org/10.25625/YC3UQU) instead.
@@ -121,3 +121,18 @@ to `configs/frozen_head/chimpact.yaml` and run `python privi/crop_action_head/tr
 4. Re-run the code snippet from 2. to also see test scores. 
 
 You can use the same procedure for `panaf500` and `baboonland`. For `chimpbehave`, you need to aggregate across the five cross-validation folds.
+
+## Citation
+
+If this code or dataset was useful to you, please cite
+
+```
+@inproceedings{mueller2026privi,
+  title   = {PriVi: Towards a General-Purpose Video Model for Primate
+             Behavior in the Wild},
+  author  = {Mueller, Felix B. and Meier, Jan F. and Lueddecke, Timo and Vogg, Richard and Freixanet, Roger L. and Hassler, Valentin and Bosshard, Tiffany and Karakoc, Elif and O'Hearn, William J. and Pereira, Sofia M. and Sehner, Sandro and Wierucka, Kaja and Burkart, Judith and Fichtel, Claudia and Fischer, Julia and Gail, Alexander and Hobaiter, Catherine and Ostner, Julia and Samuni, Liran and Sch{\"u}lke, Oliver and Shahidi, Neda and Wessling, Erin G. and Ecker, Alexander S.},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year    = {2026},
+  note    = {to appear}
+}
+```
