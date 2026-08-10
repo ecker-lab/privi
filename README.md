@@ -9,7 +9,7 @@ This is code for our CVPR 2026 paper [PriVi: Towards a General-Purpose Video Mod
 
 ## Setup
 
-Install conda (or any conda-like dependency manager) and run `conda create -f environment.yml`.
+Install conda (or any conda-like dependency manager) and run `conda env create -f environment.yml`.
 
 ## Using our model als backbone for your own work
 
@@ -62,8 +62,8 @@ See [EVAL_DATASETS.md](docs/EVAL_DATASETS.md) for dataset preprocessing and more
 ### Assemble pretrain data and model checkpoints
 
 1. Download all snippets_*.zip files from [GRO.data](https://doi.org/10.25625/YC3UQU) and unzip them in `data/snippets/`
-2. Download [yt.tab](https://doi.org/10.25625/YC3UQU) as CSV and download all YouTube videos with IDs listed to `data/yt` in the format `YOUTUBE_ID.mp4`
-3.  Run `python privi/preprocessing/extract_snippets_from_csv.py data/yt.csv data/snippets/ --video-base-path=data/` to extract 3s snippets from youtube videos
+2. Download [yt.tab](https://doi.org/10.25625/YC3UQU) as CSV and download all raw YouTube videos with IDs listed to `data/raw/yt` in the format `YOUTUBE_ID.mp4`
+3.  Run `python privi/preprocessing/extract_snippets_from_csv.py data/yt.csv data/snippets/ --video-base-path=data/raw/`. This extracts cropped 3s snippets from the raw youtube videos in `data/raw/yt/` to `data/snippets/yt{1|2|3|_mammals1}`
 4. Download [`pretrain_samples.tab`](https://doi.org/10.25625/YC3UQU) as CSV to `data/`. If you want to use only R&O videos for pretraining, use [`pretrain_samples_wo_yt.csv`](https://doi.org/10.25625/YC3UQU) instead.
 5. Download the original V-JEPA checkpoint [vitl16.pth.tar](https://dl.fbaipublicfiles.com/jepa/vitl16/vitl16.pth.tar) to `data`.
 
@@ -85,6 +85,7 @@ snippets/
 ├── yt2
 ├── yt3
 └── yt_mammals1
+raw/yt/
 yt.csv
 pretrain_samples.csv
 vitl16.pth.tar
