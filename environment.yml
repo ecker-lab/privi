@@ -36,6 +36,7 @@ dependencies:
   # ---- Utilities used by privi/ ----
   - fire
   - filelock
+  - av
 
   # ---- pip-only packages ----
   - pip:
